@@ -1,0 +1,5 @@
+EC2/terraform.tfstate.backup
+EC2/terraform.tfstate
+EC2/.terraform.lock.hcl
+EC2/.terraform
+EC2/.terraform/providers/registry.terraform.io/hashicorp/aws/4.10.0/windows_amd64/terraform-provider-aws_v4.10.0_x5.exe
