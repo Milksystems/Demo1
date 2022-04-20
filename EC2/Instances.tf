@@ -5,9 +5,9 @@ provider "aws" {
 resource "aws_instance" "Jenkins" {
  ami = "ami-0d527b8c289b4af7f"
  instance_type = "t2.micro"
- user_data = file("Bash/Jenkins.sh")
+ user_data = file("C:/Users/foolg/OneDrive/Desktop/Demo1/Bash/Jenkins.sh")
  vpc_security_group_ids = [aws_security_group.Jenkins.id]
- key_name = "Key/Frankfurt1.pem"
+ key_name = "Frankfurt2"
  tags = {
     Name = "Jenkins"
   }
@@ -43,9 +43,9 @@ resource "aws_security_group" "Jenkins" {
 resource "aws_instance" "Prod" {
  ami = "ami-0d527b8c289b4af7f"
  instance_type = "t2.micro"
- user_data = file("Bash/Docker.sh")
+ user_data = file("C:/Users/foolg/OneDrive/Desktop/Demo1/Bash/Docker.sh")
  vpc_security_group_ids = [aws_security_group.Prod.id]
- key_name = "Key/Frankfurt1.pem"
+ key_name = "Frankfurt2"
  tags = {
     Name = "Prod"
   }
