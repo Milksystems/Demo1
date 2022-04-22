@@ -5,7 +5,7 @@ provider "aws" {
 resource "aws_instance" "Jenkins" {
  ami = var.ami
  instance_type = var.instance_type
- user_data = file("C:/Users/foolg/OneDrive/Desktop/Demo1/Bash/Jenkins.sh")
+ user_data = file("Jenkins.sh")
  vpc_security_group_ids = [aws_security_group.Jenkins.id]
  key_name = var.key_name
  tags = {
@@ -15,11 +15,12 @@ resource "aws_instance" "Jenkins" {
 
 resource "aws_security_group" "Jenkins" {
 
-   dinamic "ingress" {
+   dynamic "ingress" {
+     iterator = port
      for_each = var.ports
      content {
-    from_port   = ingress.value
-    to_port     = ingress.value
+    from_port   = port.value
+    to_port     = port.value
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
     }
@@ -39,7 +40,7 @@ resource "aws_security_group" "Jenkins" {
 resource "aws_instance" "Prod" {
  ami = var.ami
  instance_type = var.instance_type
- user_data = file("C:/Users/foolg/OneDrive/Desktop/Demo1/Bash/Apache.sh")
+ user_data = file("Apache.sh")
  vpc_security_group_ids = [aws_security_group.Prod.id]
  key_name = var.key_name
  tags = {
@@ -49,11 +50,12 @@ resource "aws_instance" "Prod" {
 
 resource "aws_security_group" "Prod" {
 
-   dinamic "ingress" {
+   dynamic "ingress" {
+     iterator = port
      for_each = var.ports
      content {
-    from_port   = ingress.value
-    to_port     = ingress.value
+    from_port   = port.value
+    to_port     = port.value
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
     }
