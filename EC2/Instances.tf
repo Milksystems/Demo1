@@ -1,13 +1,13 @@
 provider "aws" {
- region = "eu-central-1"
+ region = var.region
 }
 
 resource "aws_instance" "Jenkins" {
- ami = "ami-0d527b8c289b4af7f"
- instance_type = "t2.micro"
+ ami = var.ami
+ instance_type = var.instance_type
  user_data = file("C:/Users/foolg/OneDrive/Desktop/Demo1/Bash/Jenkins.sh")
  vpc_security_group_ids = [aws_security_group.Jenkins.id]
- key_name = "Frankfurt2"
+ key_name = var.key_name
  tags = {
     Name = "Jenkins"
   }
@@ -15,18 +15,14 @@ resource "aws_instance" "Jenkins" {
 
 resource "aws_security_group" "Jenkins" {
 
-   ingress {
-    from_port   = 8080
-    to_port     = 8080
+   dinamic "ingress" {
+     for_each = var.ports
+     content {
+    from_port   = ingress.value
+    to_port     = ingress.value
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 
   egress {
@@ -41,11 +37,11 @@ resource "aws_security_group" "Jenkins" {
 }
 
 resource "aws_instance" "Prod" {
- ami = "ami-0d527b8c289b4af7f"
- instance_type = "t2.micro"
+ ami = var.ami
+ instance_type = var.instance_type
  user_data = file("C:/Users/foolg/OneDrive/Desktop/Demo1/Bash/Apache.sh")
  vpc_security_group_ids = [aws_security_group.Prod.id]
- key_name = "Frankfurt2"
+ key_name = var.key_name
  tags = {
     Name = "Prod"
   }
@@ -53,18 +49,14 @@ resource "aws_instance" "Prod" {
 
 resource "aws_security_group" "Prod" {
 
-   ingress { 
-    from_port   = 80
-    to_port     = 80
+   dinamic "ingress" {
+     for_each = var.ports
+     content {
+    from_port   = ingress.value
+    to_port     = ingress.value
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 
   egress {
