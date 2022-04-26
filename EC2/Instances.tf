@@ -5,7 +5,7 @@ provider "aws" {
 resource "aws_instance" "Jenkins" {
  ami = var.ami
  instance_type = var.instance_type
- user_data = file("Jenkins.sh")
+ user_data = file("~/Demo1/Bash/Jenkins.sh")
  vpc_security_group_ids = [aws_security_group.Jenkins.id]
  key_name = var.key_name
  tags = {
@@ -40,7 +40,7 @@ resource "aws_security_group" "Jenkins" {
 resource "aws_instance" "Prod" {
  ami = var.ami
  instance_type = var.instance_type
- user_data = file("Apache.sh")
+ user_data = file("~/Demo1/Bash/Apache.sh")
  vpc_security_group_ids = [aws_security_group.Prod.id]
  key_name = var.key_name
  tags = {
