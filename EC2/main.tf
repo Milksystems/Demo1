@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "Jenkins" {
- ami = var.ami
+ ami = data.aws_ami.ubuntu.id
  instance_type = var.instance_type
  user_data = file("~/Demo1/Bash/Jenkins.sh")
  vpc_security_group_ids = [aws_security_group.Jenkins.id]
@@ -38,7 +38,7 @@ resource "aws_security_group" "Jenkins" {
 }
 
 resource "aws_instance" "Prod" {
- ami = var.ami
+ ami = data.aws_ami.ubuntu.id
  instance_type = var.instance_type
  user_data = file("~/Demo1/Bash/Apache.sh")
  vpc_security_group_ids = [aws_security_group.Prod.id]
