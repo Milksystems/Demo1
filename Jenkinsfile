@@ -5,7 +5,11 @@ pipeline {
   stages {
     stage('Deploy') {
       steps {
-        sshagent(['ssh-key'])
+        sshagent(credentials:['github-ssh-key'])
+        sh '''
+           cd /var/www/html
+           cut index.html
+           '''
       }
     }
   }
