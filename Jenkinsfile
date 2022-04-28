@@ -5,7 +5,7 @@ pipeline {
   stages {
     stage('Deploy') {
       steps {
-        sshagent(credentials:['Prod'])
+        sshPublisher(credentials:['Prod'])
         sh '''
            cd /var/www/html
            cut index.html
