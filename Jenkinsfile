@@ -5,11 +5,7 @@ pipeline {
   stages {
     stage('Deploy') {
       steps {
-        sshPublisher(credentials:['Prod'])
-        sh '''
-           cd /var/www/html
-           cut index.html
-           '''
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'Prod', transfers: [sshTransfer(cleanRemote: false, execTimeout: 120000, sourceFiles: 'index.html')], )])
       }
     }
   }
