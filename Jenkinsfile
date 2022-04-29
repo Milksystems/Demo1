@@ -6,7 +6,7 @@ pipeline {
     stage('Deploy') {
       steps {
         sh '''
-        ssh -v sergey@172.31.0.194
+        ssh sergey@172.31.0.194
         '''
     }
   }
