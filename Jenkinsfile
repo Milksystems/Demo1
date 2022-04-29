@@ -7,6 +7,7 @@ pipeline {
       steps {
         sh '''
         sudo ssh sergey@172.31.0.194
+        echo 123456
         '''
     }
   }
