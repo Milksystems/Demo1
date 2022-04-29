@@ -5,8 +5,9 @@ pipeline {
   stages {
     stage('Deploy') {
       steps {
-        sshPublisher(publishers: [sshPublisherDesc(configName: 'Prod', transfers: [sshTransfer(sourceFiles: 'index.html')], )])
-      }
+        sh '''
+        sudo ssh sergey@172.31.0.194
+        '''
     }
   }
 }
