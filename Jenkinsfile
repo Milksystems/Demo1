@@ -5,7 +5,8 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        result=grep "Hello" index.html |wc -l
+        sh '''
+        result=grep "Hello" index.html
            echo $result
         if  [ "$result" = "1" ]
         then
@@ -14,6 +15,7 @@ pipeline {
            echo "Test Failed"
         exit 1
         fi
+        '''
       }
     }
     stage('Deploy') {
